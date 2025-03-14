@@ -14,7 +14,7 @@ jobs:
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
-          git clone https://github.com/ilhan-athn7/android_kernel_xiaomi_sdm710 --depth=1 -b ksu_nonhide --recurse-submodules android_kernel_xiaomi_sdm710_LineageOS
+          git clone https://github.com/Rocky7842/android_kernel_xiaomi_sdm710 --depth=1 -b lineage-22.1-ksu-hide-fix --recurse-submodules lineage-22.1-ksu-hide-fix
           git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch --no-tags -b 12.1 ~/clang
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
@@ -31,7 +31,7 @@ jobs:
           export CROSS_COMPILE=aarch64-linux-android-
           export CROSS_COMPILE_ARM32=arm-linux-androideabi-
           output_dir=out
-          pushd android_kernel_xiaomi_sdm710_LineageOS
+          pushd lineage-22.1-ksu-hide-fix
           make O="$output_dir" \
                       sdm670-perf_defconfig \
                       xiaomi/sdm710-common.config \
@@ -42,7 +42,7 @@ jobs:
           popd
       - name: Packaging the Kernel(LineageOS)
         run: |
-          cp -v android_kernel_xiaomi_sdm710_LineageOS/out/arch/arm64/boot/Image.gz \
+          cp -v lineage-22.1-ksu-hide-fix/out/arch/arm64/boot/Image.gz \
                      AnyKernel3/
           pushd AnyKernel3
           7z a -mx9 ../MI8SE_KernelSU_LineageOS.zip *
